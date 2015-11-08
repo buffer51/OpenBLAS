@@ -1,0 +1,51 @@
+echo "Level1"
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./sblat1
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./dblat1
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./cblat1
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./zblat1
+OPENBLAS_NUM_THREADS=2 ./sblat1
+OPENBLAS_NUM_THREADS=2 ./dblat1
+OPENBLAS_NUM_THREADS=2 ./cblat1
+OPENBLAS_NUM_THREADS=2 ./zblat1
+
+echo "Level 2"
+rm -f ?BLAT2.SUMM
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./sblat2 < ./sblat2.dat
+grep -q FATAL SBLAT2.SUMM && (cat SBLAT2.SUMM; exit 0)
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./dblat2 < ./dblat2.dat
+grep -q FATAL DBLAT2.SUMM && (cat DBLAT2.SUMM; exit 0)
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./cblat2 < ./cblat2.dat
+grep -q FATAL CBLAT2.SUMM && (cat CBLAT2.SUMM; exit 0)
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./zblat2 < ./zblat2.dat
+grep -q FATAL ZBLAT2.SUMM && (cat ZBLAT2.SUMM; exit 0)
+rm -f ?BLAT2.SUMM
+OPENBLAS_NUM_THREADS=2 ./sblat2 < ./sblat2.dat
+grep -q FATAL SBLAT2.SUMM && (cat SBLAT2.SUMM; exit 0)
+OPENBLAS_NUM_THREADS=2 ./dblat2 < ./dblat2.dat
+grep -q FATAL DBLAT2.SUMM && (cat DBLAT2.SUMM; exit 0)
+OPENBLAS_NUM_THREADS=2 ./cblat2 < ./cblat2.dat
+grep -q FATAL CBLAT2.SUMM && (cat CBLAT2.SUMM; exit 0)
+OPENBLAS_NUM_THREADS=2 ./zblat2 < ./zblat2.dat
+grep -q FATAL ZBLAT2.SUMM && (cat ZBLAT2.SUMM; exit 0)
+
+echo "Level 3"
+rm -f ?BLAT3.SUMM
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./sblat3 < ./sblat3.dat
+grep -q FATAL SBLAT3.SUMM && (cat SBLAT3.SUMM ; exit 0)
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./dblat3 < ./dblat3.dat
+grep -q FATAL DBLAT3.SUMM && (cat DBLAT3.SUMM ; exit 0)
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./cblat3 < ./cblat3.dat
+grep -q FATAL CBLAT3.SUMM && (cat CBLAT3.SUMM ; exit 0)
+OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1 ./zblat3 < ./zblat3.dat
+grep -q FATAL ZBLAT3.SUMM && (cat ZBLAT3.SUMM ; exit 0)
+rm -f ?BLAT3.SUMM
+OPENBLAS_NUM_THREADS=2 ./sblat3 < ./sblat3.dat
+grep -q FATAL SBLAT3.SUMM && (cat SBLAT3.SUMM ; exit 0)
+OPENBLAS_NUM_THREADS=2 ./dblat3 < ./dblat3.dat
+grep -q FATAL DBLAT3.SUMM && (cat DBLAT3.SUMM ; exit 0)
+OPENBLAS_NUM_THREADS=2 ./cblat3 < ./cblat3.dat
+grep -q FATAL CBLAT3.SUMM && (cat CBLAT3.SUMM ; exit 0)
+OPENBLAS_NUM_THREADS=2 ./zblat3 < ./zblat3.dat
+grep -q FATAL ZBLAT3.SUMM && (cat ZBLAT3.SUMM ; exit 0)
+
+echo "Done"
