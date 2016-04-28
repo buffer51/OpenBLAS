@@ -3,6 +3,8 @@ TOPDIR	= ..
 
 UTESTBIN=openblas_utest
 
+TEST = test.sh
+
 .PHONY : all
 .NOTPARALLEL : all run_test $(UTESTBIN)
 
@@ -21,12 +23,16 @@ $(UTESTBIN): $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $^ ../$(LIBNAME) $(EXTRALIB) $(FEXTRALIB)
 
 run_test: $(UTESTBIN)
+	@rm -f $(TEST)
+	@touch $(TEST) && chmod +x $(TEST)
+
+	@echo "./$(UTESTBIN)" >> $(TEST)
+
 ifndef CROSS
-	./$(UTESTBIN)
+	./$(TEST)
 endif
 
 clean:
-	-rm -f *.o $(UTESTBIN)
+	@rm -f *.o $(UTESTBIN) $(TEST)
 
 libs:
-

@@ -37,69 +37,95 @@ ztestl3o = c_zblas3.o c_z3chke.o auxiliary.o c_xerbla.o constant.o
 
 ztestl3o_3m = c_zblas3_3m.o c_z3chke_3m.o auxiliary.o c_xerbla.o constant.o
 
-
+TEST_LEVEL1 = test_level1.sh
+TEST_LEVEL2 = test_level2.sh
+TEST_LEVEL3 = test_level3.sh
+TEST_LEVEL3_3M = test_level3_3m.sh
 
 all :: all1 all2 all3
 
 all1: xscblat1 xdcblat1 xccblat1 xzcblat1
-ifndef CROSS
+	@rm -f $(TEST_LEVEL1)
+	@touch $(TEST_LEVEL1) && chmod +x $(TEST_LEVEL1)
+
 ifeq ($(USE_OPENMP), 1)
-	OMP_NUM_THREADS=2 ./xscblat1
-	OMP_NUM_THREADS=2 ./xdcblat1
-	OMP_NUM_THREADS=2 ./xccblat1
-	OMP_NUM_THREADS=2 ./xzcblat1
+	@echo "OMP_NUM_THREADS=2 ./xscblat1" >> $(TEST_LEVEL1)
+	@echo "OMP_NUM_THREADS=2 ./xdcblat1" >> $(TEST_LEVEL1)
+	@echo "OMP_NUM_THREADS=2 ./xccblat1" >> $(TEST_LEVEL1)
+	@echo "OMP_NUM_THREADS=2 ./xzcblat1" >> $(TEST_LEVEL1)
 else
-	OPENBLAS_NUM_THREADS=2 ./xscblat1
-	OPENBLAS_NUM_THREADS=2 ./xdcblat1
-	OPENBLAS_NUM_THREADS=2 ./xccblat1
-	OPENBLAS_NUM_THREADS=2 ./xzcblat1
+	@echo "OPENBLAS_NUM_THREADS=2 ./xscblat1" >> $(TEST_LEVEL1)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xdcblat1" >> $(TEST_LEVEL1)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xccblat1" >> $(TEST_LEVEL1)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xzcblat1" >> $(TEST_LEVEL1)
 endif
+
+ifndef CROSS
+	./$(TEST_LEVEL1)
 endif
 
 all2: xscblat2 xdcblat2 xccblat2 xzcblat2
-ifndef CROSS
+	@rm -f $(TEST_LEVEL2)
+	@touch $(TEST_LEVEL2) && chmod +x $(TEST_LEVEL2)
+
 ifeq ($(USE_OPENMP), 1)
-	OMP_NUM_THREADS=2 ./xscblat2 < sin2
-	OMP_NUM_THREADS=2 ./xdcblat2 < din2
-	OMP_NUM_THREADS=2 ./xccblat2 < cin2
-	OMP_NUM_THREADS=2 ./xzcblat2 < zin2
+	@echo "OMP_NUM_THREADS=2 ./xscblat2 < sin2" >> $(TEST_LEVEL2)
+	@echo "OMP_NUM_THREADS=2 ./xdcblat2 < din2" >> $(TEST_LEVEL2)
+	@echo "OMP_NUM_THREADS=2 ./xccblat2 < cin2" >> $(TEST_LEVEL2)
+	@echo "OMP_NUM_THREADS=2 ./xzcblat2 < zin2" >> $(TEST_LEVEL2)
 else
-	OPENBLAS_NUM_THREADS=2 ./xscblat2 < sin2
-	OPENBLAS_NUM_THREADS=2 ./xdcblat2 < din2
-	OPENBLAS_NUM_THREADS=2 ./xccblat2 < cin2
-	OPENBLAS_NUM_THREADS=2 ./xzcblat2 < zin2
+	@echo "OPENBLAS_NUM_THREADS=2 ./xscblat2 < sin2" >> $(TEST_LEVEL2)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xdcblat2 < din2" >> $(TEST_LEVEL2)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xccblat2 < cin2" >> $(TEST_LEVEL2)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xzcblat2 < zin2" >> $(TEST_LEVEL2)
 endif
+
+ifndef CROSS
+	./$(TEST_LEVEL2)
 endif
 
 all3: xscblat3 xdcblat3 xccblat3 xzcblat3
-ifndef CROSS
+	@rm -f $(TEST_LEVEL3)
+	@touch $(TEST_LEVEL3) && chmod +x $(TEST_LEVEL3)
+
 ifeq ($(USE_OPENMP), 1)
-	OMP_NUM_THREADS=2 ./xscblat3 < sin3
-	OMP_NUM_THREADS=2 ./xdcblat3 < din3
-	OMP_NUM_THREADS=2 ./xccblat3 < cin3
-	OMP_NUM_THREADS=2 ./xzcblat3 < zin3
+	@echo "OMP_NUM_THREADS=2 ./xscblat3 < sin3" >> $(TEST_LEVEL3)
+	@echo "OMP_NUM_THREADS=2 ./xdcblat3 < din3" >> $(TEST_LEVEL3)
+	@echo "OMP_NUM_THREADS=2 ./xccblat3 < cin3" >> $(TEST_LEVEL3)
+	@echo "OMP_NUM_THREADS=2 ./xzcblat3 < zin3" >> $(TEST_LEVEL3)
 else
-	OPENBLAS_NUM_THREADS=2 ./xscblat3 < sin3
-	OPENBLAS_NUM_THREADS=2 ./xdcblat3 < din3
-	OPENBLAS_NUM_THREADS=2 ./xccblat3 < cin3
-	OPENBLAS_NUM_THREADS=2 ./xzcblat3 < zin3
+	@echo "OPENBLAS_NUM_THREADS=2 ./xscblat3 < sin3" >> $(TEST_LEVEL3)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xdcblat3 < din3" >> $(TEST_LEVEL3)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xccblat3 < cin3" >> $(TEST_LEVEL3)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xzcblat3 < zin3" >> $(TEST_LEVEL3)
+endif
+
+ifndef CROSS
+	./$(TEST_LEVEL3)
 endif
 
 all3_3m: xzcblat3_3m xccblat3_3m
+	@rm -f $(TEST_LEVEL3_3M)
+	@touch $(TEST_LEVEL3_3M) && chmod +x $(TEST_LEVEL3_3M)
+
 ifeq ($(USE_OPENMP), 1)
-	OMP_NUM_THREADS=2 ./xccblat3_3m < cin3_3m
-	OMP_NUM_THREADS=2 ./xzcblat3_3m < zin3_3m
+	@echo "OMP_NUM_THREADS=2 ./xccblat3_3m < cin3_3m" >> $(TEST_LEVEL3_3M)
+	@echo "OMP_NUM_THREADS=2 ./xzcblat3_3m < zin3_3m" >> $(TEST_LEVEL3_3M)
 else
-	OPENBLAS_NUM_THREADS=2 ./xccblat3_3m < cin3_3m
-	OPENBLAS_NUM_THREADS=2 ./xzcblat3_3m < zin3_3m
+	@echo "OPENBLAS_NUM_THREADS=2 ./xccblat3_3m < cin3_3m" >> $(TEST_LEVEL3_3M)
+	@echo "OPENBLAS_NUM_THREADS=2 ./xzcblat3_3m < zin3_3m" >> $(TEST_LEVEL3_3M)
 endif
+
+ifndef CROSS
+	./$(TEST_LEVEL3_3M)
 endif
 
 
 
 
 clean ::
-	rm -f x*
+	@rm -f x* \
+		$(TEST_LEVEL1) $(TEST_LEVEL2) $(TEST_LEVEL3) $(TEST_LEVEL3_3M)
 
 FLDFLAGS = $(FFLAGS:-fPIC=) $(LDFLAGS)
 CEXTRALIB =

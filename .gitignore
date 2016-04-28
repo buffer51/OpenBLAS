@@ -30,6 +30,7 @@ config_last.h
 getarch
 getarch_2nd
 utest/openblas_utest
+utest/test.sh
 ctest/xccblat1
 ctest/xccblat2
 ctest/xccblat3
@@ -42,6 +43,10 @@ ctest/xscblat3
 ctest/xzcblat1
 ctest/xzcblat2
 ctest/xzcblat3
+ctest/test_level1.sh
+ctest/test_level2.sh
+ctest/test_level3.sh
+ctest/test_level3_3m.sh
 exports/linktest.c
 exports/linux.def
 kernel/setparam_*.c
@@ -66,6 +71,10 @@ test/sblat3
 test/zblat1
 test/zblat2
 test/zblat3
+test/test_level1.sh
+test/test_level2.sh
+test/test_level3.sh
+test/test_level3_3m.sh
 build
 build.*
 *.swp
